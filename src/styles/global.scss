@@ -1,0 +1,407 @@
+@import "./_mixins.scss";
+@import 'typography';
+
+.pointer {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+button:focus {
+  outline: none !important;
+}
+
+.image-hover {
+  overflow: hidden;
+
+  div,
+  div:hover,
+  a,
+  a:hover {
+    overflow: hidden;
+    border-radius: 5px;
+  }
+}
+
+.image-hover img,
+.image-hover .thumb-title {
+  transform: scale(1);
+  transition: 0.4s ease-in-out;
+}
+
+.image-hover:hover img {
+  transform: scale(1.15);
+  opacity: 0.8;
+  border-radius: 5px;
+}
+
+.btn-hover {
+  @include transition(all 0.5s);
+  color: rgba(255, 255, 255, 1);
+  position: relative;
+
+  &:focus {
+    outline: none;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0;
+    background-color: rgba(255, 255, 255, 0.4);
+    @include transition(all 0.3s);
+  }
+
+  &:hover::before {
+    opacity: 1;
+    width: 100%;
+  }
+}
+
+.is-blurred {
+  filter: blur(2px);
+  -webkit-filter: blur(2px);
+  opacity: 0.9;
+}
+
+.err-msg {
+  color: red;
+  margin-top: 5px;
+  font-size: 1.2rem;
+  text-align: right;
+  min-height: 18px;
+}
+
+.hover-img {
+  overflow: hidden;
+
+  img {
+    transform: scale(1);
+    transition: 0.3s ease-in-out;
+  }
+
+  &:hover img {
+    transform: scale(1.1) rotate(2deg);
+  }
+}
+
+.hover-raise {
+  &:hover {
+    box-shadow: 0 0.5em 0.5em -0.4em #c02627;
+    transition: all 0.25s !important;
+    transform: translateY(-0.25em) !important;
+  }
+}
+
+.hover-scale {
+  transition: 0.2s ease-in-out 0s;
+
+  &:hover {
+    z-index: 2;
+    transform: scale(1.1) !important;
+  }
+}
+
+.hover-slide {
+  position: relative;
+  cursor: pointer;
+
+  &::after {
+    content: "";
+    border-radius: 4px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: width 0.3s;
+    background-color: rgba(255, 255, 255, 0.4);
+    height: 100%;
+    width: 0;
+  }
+
+  &:hover::after {
+    width: 100%;
+  }
+}
+
+.blur-1x {
+  -webkit-filter: blur(1px);
+  -o-filter: blur(1px);
+  -moz-filter: blur(1px);
+  filter: blur(1px);
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  /* autoprefixer: off */
+  -moz-box-orient: vertical;
+  -webkit-box-orient: vertical;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  /* autoprefixer: off */
+  -moz-box-orient: vertical;
+  -webkit-box-orient: vertical;
+}
+
+.transition-h {
+  overflow: hidden;
+  transition: all 0.35s ease;
+}
+
+.flex-center {
+  @apply flex justify-center items-center;
+}
+
+.flex-between {
+  @apply flex justify-between items-center;
+}
+
+.medium {
+  font-weight: 600;
+}
+
+a {
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.ant-table {
+  .ant-table-row-selected .ant-table-cell {
+    background-color: #d9e9e3 !important;
+  }
+}
+
+.ant-checkbox-checked .ant-checkbox-inner,
+.ant-tree-checkbox-checked .ant-tree-checkbox-inner,
+.ant-tree-checkbox-indeterminate .ant-tree-checkbox-inner:after {
+  background-color: #c02627 !important;
+  border-color: #c02627 !important;
+}
+
+.ant-checkbox-wrapper {
+  font-weight: 400 !important;
+
+  .ant-checkbox-inner {
+    border-color: #c02627 !important;
+  }
+}
+
+.ant-switch-checked {
+  background-color: #c02627 !important;
+}
+
+.ant-radio-checked .ant-radio-inner {
+  background-color: #c02627 !important;
+  border-color: #c02627 !important;
+}
+
+.ant-checkbox-indeterminate .ant-checkbox-inner:after {
+  background-color: #c02627 !important;
+}
+
+.ant-checkbox-indeterminate:hover .ant-checkbox-inner {
+  border-color: #c02627 !important;
+}
+
+.ant-menu-inline-collapsed > .ant-menu-item, :where(.css-dev-only-do-not-override-qnu6hi).ant-menu-inline-collapsed > .ant-menu-item-group > .ant-menu-item-group-list > .ant-menu-item, :where(.css-dev-only-do-not-override-qnu6hi).ant-menu-inline-collapsed > .ant-menu-item-group > .ant-menu-item-group-list > .ant-menu-submenu > .ant-menu-submenu-title, :where(.css-dev-only-do-not-override-qnu6hi).ant-menu-inline-collapsed > .ant-menu-submenu > .ant-menu-submenu-title {
+  padding-inline: calc(45% - 8px - 4px) !important;
+}
+
+.ant-input:hover {
+  border-color: #c02627 !important;
+}
+
+.ant-select-selector:hover {
+  border-color: #c02627 !important;
+}
+
+.ant-input:focus {
+  border-color: #c02627 !important;
+}
+
+.ant-select-selector:focus {
+  border-color: #c02627 !important;
+}
+
+.ant-layout {
+    min-height: 100vh;
+    
+    .ant-layout-content {
+        overflow-x: hidden;
+    }
+}
+
+body {
+    overflow-x: hidden;
+    font-family: $font-family-base;
+    font-size: $font-size-base;
+    line-height: $line-height-normal;
+    color: #2c3e50;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.container-fluid {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 100%;
+}
+
+// Reset và base styles
+* {
+    font-family: $font-family-base !important;
+}
+
+// Typography base styles
+body {
+    font-family: $font-family-base;
+    font-size: $font-size-base;
+    line-height: $line-height-normal;
+    color: #2c3e50;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+// Headings
+h1, h2, h3, h4, h5, h6 {
+    font-weight: $font-weight-semibold;
+    line-height: $line-height-tight;
+    color: #1a202c;
+}
+
+h1 { font-size: $font-size-3xl; }
+h2 { font-size: $font-size-2xl; }
+h3 { font-size: $font-size-xl; }
+h4 { font-size: $font-size-lg; }
+h5 { font-size: $font-size-base; }
+h6 { font-size: $font-size-sm; }
+
+// Form elements
+.ant-input,
+.ant-select,
+.ant-btn,
+.ant-checkbox-wrapper,
+.ant-radio-wrapper {
+    font-family: $font-family-base !important;
+    font-size: $font-size-base !important;
+}
+
+// Table styles
+.ant-table {
+    font-family: $font-family-base !important;
+    
+    th {
+        font-weight: $font-weight-semibold !important;
+        font-size: $font-size-sm !important;
+    }
+    
+    td {
+        font-size: $font-size-base !important;
+    }
+}
+
+// Card styles
+.ant-card {
+    .ant-card-head-title {
+        font-weight: $font-weight-semibold !important;
+        font-size: $font-size-lg !important;
+    }
+    
+    .ant-card-body {
+        font-size: $font-size-base !important;
+    }
+}
+
+// Menu styles
+.ant-menu {
+    font-family: $font-family-base !important;
+    
+    .ant-menu-item,
+    .ant-menu-submenu-title {
+        font-size: $font-size-base !important;
+        font-weight: $font-weight-medium !important;
+    }
+}
+
+// Button styles
+.ant-btn {
+    font-weight: $font-weight-medium !important;
+    
+    &.ant-btn-lg {
+        font-size: $font-size-lg !important;
+    }
+    
+    &.ant-btn-sm {
+        font-size: $font-size-sm !important;
+    }
+}
+
+// Form labels
+.ant-form-item-label > label {
+    font-weight: $font-weight-medium !important;
+    font-size: $font-size-base !important;
+}
+
+// Modal styles
+.ant-modal {
+    .ant-modal-title {
+        font-weight: $font-weight-semibold !important;
+        font-size: $font-size-xl !important;
+    }
+    
+    .ant-modal-body {
+        font-size: $font-size-base !important;
+    }
+}
+
+// Alert and message styles
+.ant-alert,
+.ant-message {
+    font-family: $font-family-base !important;
+    font-size: $font-size-base !important;
+}
+
+// Breadcrumb styles
+.ant-breadcrumb {
+    font-family: $font-family-base !important;
+    font-size: $font-size-base !important;
+}
+
+// Tabs styles
+.ant-tabs {
+    font-family: $font-family-base !important;
+    
+    .ant-tabs-tab {
+        font-size: $font-size-base !important;
+        font-weight: $font-weight-medium !important;
+    }
+}
+
+// Pagination styles
+.ant-pagination {
+    font-family: $font-family-base !important;
+    font-size: $font-size-sm !important;
+}
+
+// Tooltip and Popover
+.ant-tooltip,
+.ant-popover {
+    font-family: $font-family-base !important;
+    font-size: $font-size-sm !important;
+}

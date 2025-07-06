@@ -1,0 +1,21 @@
+.active-row {
+  background-color: rgb(243, 246, 243);
+  cursor: pointer;
+}
+
+.total-element {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  background: white;
+}
+
+li.ant-pagination-item.ant-pagination-item-1.ant-pagination-item-active {
+  border-color: #c02627 !important;
+}
+
+:where(.css-dev-only-do-not-override-qnu6hi).ant-pagination
+.ant-pagination-item-active
+a {
+  color: #c02627;
+}

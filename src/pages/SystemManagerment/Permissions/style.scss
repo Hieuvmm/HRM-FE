@@ -1,0 +1,343 @@
+// src/pages/Permission/styles.scss
+
+// Variables
+:root {
+    --primary-red: #dc2626;
+    --primary-red-hover: #b91c1c;
+    --border-color: #e5e7eb;
+    --text-primary: #1f2937;
+    --text-secondary: #4b5563;
+    --bg-hover: #f9fafb;
+  }
+  
+  .permission-management {
+    padding: 24px;
+  
+    // Header Card
+    .ant-card {
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  
+      .ant-card-body {
+        padding: 24px;
+      }
+    }
+  
+    // Page Title Section
+    .page-header {
+      margin-bottom: 24px;
+      
+      h1 {
+        color: var(--text-primary);
+        margin-bottom: 8px;
+        font-size: 24px;
+        font-weight: 600;
+      }
+  
+      .ant-btn {
+        height: 40px;
+        padding: 0 20px;
+        border-radius: 6px;
+        font-weight: 500;
+        
+        &.ant-btn-primary {
+          background: var(--primary-red);
+          border-color: var(--primary-red);
+          
+          &:hover {
+            background: var(--primary-red-hover);
+            border-color: var(--primary-red-hover);
+          }
+  
+          .anticon {
+            margin-right: 8px;
+          }
+        }
+      }
+    }
+  
+    // Tabs Styling
+    .permission-tabs {
+      .ant-tabs-nav {
+        margin-bottom: 24px;
+  
+        &::before {
+          border-bottom: 2px solid var(--border-color);
+        }
+  
+        .ant-tabs-tab {
+          padding: 12px 0;
+          margin: 0 24px 0 0;
+          font-size: 15px;
+          
+          &:hover {
+            color: var(--primary-red);
+          }
+  
+          &.ant-tabs-tab-active .ant-tabs-tab-btn {
+            color: var(--primary-red);
+            font-weight: 500;
+          }
+        }
+  
+        .ant-tabs-ink-bar {
+          background: var(--primary-red);
+          height: 2px;
+        }
+      }
+    }
+  
+    // Search Input
+    .ant-input-affix-wrapper {
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      
+      &:hover, &:focus {
+        border-color: var(--primary-red);
+        box-shadow: none;
+      }
+  
+      .anticon-search {
+        color: #9ca3af;
+      }
+  
+      input {
+        font-size: 14px;
+        
+        &::placeholder {
+          color: #9ca3af;
+        }
+      }
+    }
+  
+    // Table Styling
+    .permission-table {
+      .ant-table {
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+  
+        .ant-table-thead > tr > th {
+          background: #f8fafc;
+          font-weight: 600;
+          color: var(--text-primary);
+          padding: 16px;
+          border-bottom: 2px solid var(--border-color);
+  
+          &::before {
+            display: none;
+          }
+        }
+  
+        .ant-table-tbody > tr > td {
+          padding: 16px;
+          border-bottom: 1px solid var(--border-color);
+  
+          .font-medium {
+            font-weight: 500;
+            color: var(--text-primary);
+          }
+        }
+  
+        .ant-table-tbody > tr:hover > td {
+          background: var(--bg-hover);
+        }
+      }
+  
+      // Tags in table
+      .ant-tag {
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 13px;
+        
+        &.ant-tag-blue {
+          background: #eff6ff;
+          border-color: #bfdbfe;
+          color: #2563eb;
+        }
+      }
+  
+      // Action buttons
+      .ant-btn-text {
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        border-radius: 6px;
+  
+        &:hover {
+          background: var(--bg-hover);
+        }
+  
+        &.ant-btn-dangerous:hover {
+          background: #fef2f2;
+          color: #dc2626;
+        }
+  
+        .anticon {
+          font-size: 16px;
+        }
+      }
+    }
+  
+    // Permission Grid Cards
+    .permission-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+  
+      .permission-card {
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+  
+        &:hover {
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+  
+        .ant-card-head {
+          padding: 16px 20px;
+          border-bottom: 1px solid var(--border-color);
+          background: #f8fafc;
+          border-radius: 8px 8px 0 0;
+  
+          .ant-card-head-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+          }
+        }
+  
+        .ant-card-body {
+          padding: 0;
+        }
+  
+        .permission-list {
+          .permission-item {
+            padding: 14px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.2s ease;
+  
+            &:last-child {
+              border-bottom: none;
+            }
+  
+            &:hover {
+              background-color: var(--bg-hover);
+            }
+  
+            span {
+              font-size: 14px;
+              color: var(--text-secondary);
+            }
+  
+            // Switch styling
+            .ant-switch {
+              min-width: 44px;
+              height: 22px;
+              background-color: #d1d5db;
+  
+              &.ant-switch-checked {
+                background-color: var(--primary-red);
+              }
+  
+              .ant-switch-handle {
+                width: 18px;
+                height: 18px;
+                top: 2px;
+              }
+  
+              &:not(.ant-switch-disabled) {
+                &:hover {
+                  background-color: #9ca3af;
+                }
+  
+                &.ant-switch-checked:hover {
+                  background-color: var(--primary-red-hover);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  
+    // Tooltips
+    .ant-tooltip {
+      .ant-tooltip-inner {
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-size: 13px;
+      }
+    }
+  
+    // Responsive Adjustments
+    @media (max-width: 768px) {
+      padding: 16px;
+  
+      .page-header {
+        h1 {
+          font-size: 20px;
+        }
+      }
+  
+      .permission-grid {
+        grid-template-columns: 1fr;
+      }
+  
+      .ant-table {
+        .ant-table-thead > tr > th,
+        .ant-table-tbody > tr > td {
+          padding: 12px;
+        }
+      }
+    }
+  
+    // Animation
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  
+    .permission-card {
+      animation: fadeIn 0.3s ease-out;
+    }
+  }
+  
+  // Dark mode support
+  @media (prefers-color-scheme: dark) {
+    .permission-management {
+      --text-primary: #f3f4f6;
+      --text-secondary: #d1d5db;
+      --border-color: #374151;
+      --bg-hover: #1f2937;
+  
+      .ant-card,
+      .permission-card {
+        background: #111827;
+      }
+  
+      .ant-table {
+        background: #111827;
+  
+        .ant-table-thead > tr > th {
+          background: #1f2937;
+          color: #f3f4f6;
+        }
+  
+        .ant-table-tbody > tr > td {
+          background: #111827;
+          color: #f3f4f6;
+        }
+      }
+    }
+  }

@@ -1,0 +1,268 @@
+.calender .ant-picker-calendar .ant-picker-calendar-header {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.ant-picker-calendar.ant-picker-calendar-full .ant-picker-calendar-date-content {
+  position: static;
+  width: auto;
+  height: 50px;
+  overflow-y: auto;
+  color: rgba(0, 0, 0, 0.88);
+  line-height: 1.5714285714285714;
+  text-align: center;
+  font-weight: bold;
+  font-size: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ant-tabs-tabpane {
+  padding-left: 0 !important;
+}
+
+.ant-picker-calendar .ant-picker-calendar-header {
+  display: none;
+}
+
+.ant-picker-calendar-date {
+  height: 110px !important;
+}
+
+.ant-picker-calendar.ant-picker-calendar-full .ant-picker-panel .ant-picker-body th {
+  height: 30px;
+  padding-inline-end: 0px;
+  padding-bottom: 0px;
+  line-height: 18px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.ant-picker-calendar.ant-picker-calendar-full .ant-picker-calendar-date-value {
+  line-height: 24px;
+  transition: color 0.3s;
+  text-align: center;
+}
+
+.custom-modal .ant-modal-header {
+  color: #333;
+  border-bottom: none;
+
+  .ant-modal-title {
+    font-size: 20px;
+    text-transform: capitalize;
+    width: 50%;
+    border-radius: 10px;
+    background-color: #cccccc;
+    text-align: center;
+  }
+}
+
+.content-detail {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  margin-bottom: 20px;
+}
+
+.timekeeping, .single-word {
+  font-size: 20px;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+  border-bottom: 2px solid #000000;
+
+
+}
+
+.timekeeping.active,
+.single-word.active {
+  background-color: #5ea4f1;
+  border-radius: 5px;
+  border-bottom: none;
+}
+
+.left-box {
+  display: flex;
+  justify-content: space-between;
+}
+
+.reset-p {
+  margin: 10px 0px;
+}
+
+.time-center {
+  display: block;
+  text-align: center;
+}
+
+.right-box {
+  width: 50%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.t-left {
+  width: 50%;
+}
+
+p {
+  font-size: 18px;
+}
+
+.box-single {
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+}
+
+.work-stats-container {
+  background-color: #fff;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  border-style: outset;
+}
+
+.work {
+  width: 230px;
+}
+
+.mini {
+  margin-left: 15px;
+  font-size: 16px;
+}
+
+.box-top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #000000;
+  height: 100px;
+}
+
+.c-box {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+.mini-right {
+  margin-right: 15px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.mini-right-circle {
+  margin-right: 15px;
+  border-radius: 50%;
+  background-color: #b5b5be;
+  height: 75px;
+  width: 75px;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.box-under {
+  margin-top: 20px;
+}
+
+.footer {
+  margin-top: auto;
+  bottom: 0;
+  padding: 15px;
+
+}
+
+.footer p {
+  font-size: 14px;
+  font-style: italic;
+  text-align: left;
+  color: red;
+}
+
+.mini-text {
+  margin-left: 15px;
+  font-size: 16px;
+  text-align: left;
+  width: 61%;
+}
+
+.mini-right-text {
+  margin-right: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.timeKeep_detail {
+  width: 30%;
+  border-style: outset;
+  height: auto;
+}
+
+.box1 {
+  height: 10%;
+  border-radius: 5px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+  background-color: rgba(214, 230, 223, 1);
+  color: rgba(3, 102, 102, 1);
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.recording_time {
+  display: flex;
+  width: 100%;
+  padding: 10px 0px;
+  margin: 10px 0px;
+
+  .box {
+    width: 50%;
+    border-radius: 5px;
+    padding: 50px 5px;
+    margin: 0px 10px;
+    background-color: rgba(214, 230, 223, 1);
+    color: rgba(3, 102, 102, 1);
+    font-weight: bold;
+    font-size: 20px;
+  }
+}
+
+.box4 {
+  height: 10%;
+  border-radius: 5px;
+  align-items: center;
+  display: flex;
+  margin: 10px;
+  border: 1px solid #cccccc;
+  text-align: left;
+
+  span {
+    margin-left: 10px;
+    font-weight: bold;
+    color: rgba(3, 102, 102, 1)
+  }
+}
+
+
+.content-layout {
+  overflow-y: scroll;
+  overflow-x: hidden
+}
+
+.content-layout::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+
+

@@ -1,0 +1,99 @@
+$xxs-max: 339px;
+$xxs-min: 340px;
+
+$xs-max: 767px;
+$xs-min: 768px;
+
+$sm-max: 991px;
+$sm-min: 992px;
+
+$md-max: 1199px;
+$md-min: 1200px;
+
+$lg-max: 1599px;
+$lg-min: 1600px;
+
+@mixin desktop-2xl {
+  @media (max-width: $lg-max) {
+    @content;
+  }
+}
+
+@mixin desktop-xl {
+  @media (max-width: 1400px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (max-width: $md-max) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media screen and (max-width: $sm-max) and (min-height: 500px) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media screen and (min-width: 320px) and (max-width: $xs-max) {
+    @content;
+  }
+}
+
+@mixin not-mobile {
+  @media (min-width: $xs-min) {
+    @content;
+  }
+}
+
+@mixin only-tablet {
+  @media screen and (max-width: $md-max) and (min-width: $xs-min) and (min-height: 500px) {
+    @content;
+  }
+}
+
+@mixin only-desktop {
+  @media screen and (min-width: $md-min) {
+    @content;
+  }
+}
+
+@mixin mobile-xxs {
+  @media (max-width: $xxs-max) {
+    @content;
+  }
+}
+
+@mixin maxW($arg) {
+  @media (max-width: $arg) {
+    @content;
+  }
+}
+
+@mixin minW($arg) {
+  @media (min-width: $arg) {
+    @content;
+  }
+}
+
+@mixin largerDesktop {
+  @media (min-width: $sm-min) {
+    @content;
+  }
+}
+
+@mixin transform($arg) {
+  transform: $arg;
+  -webkit-transform: $arg;
+  -o-transform: $arg;
+}
+
+@mixin transition($arg) {
+  transition: $arg;
+  -webkit-transition: $arg;
+  -moz-transition: $arg;
+  -o-transition: $arg;
+}

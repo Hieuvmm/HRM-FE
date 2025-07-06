@@ -1,0 +1,131 @@
+@import "/src/styles/style.module.scss";
+
+.body {
+  font-family: Roboto Slab, serif;
+}
+
+.personnal-tab-title {
+  color: $color;
+  font-size: 20px;
+  background: white;
+  text-align: left;
+  padding-left: 24px;
+  padding-top: 10px;
+}
+
+.personnal-tab-row {
+  background: white;
+  padding-left: 2%;
+  padding-top: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.personnal-tab-item .form-select-field.active .form-select-label {
+  top: 8px;
+  transform: translateY(-100%);
+  left: 11px;
+  height: 20px;
+  padding: 0 8px;
+  color: rgb(34, 34, 34);
+  display: inline-block;
+  border-color: white;
+  background-color: white;
+  transition: 0.5s;
+}
+
+.personnal-tab-item {
+  display: flex;
+  flex-direction: column;
+  margin: 38px 5px;
+}
+
+.personnal-tab-job {
+  display: flex;
+  flex-direction: column;
+  margin: 28px 5px;
+}
+
+.radio-status {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.personnal-tab-item label {
+  margin-top: 6px;
+  position: absolute;
+}
+
+.personnal-tab-job label {
+  margin-top: 8px;
+  position: absolute;
+}
+
+.col-input .form-select-label {
+  margin-top: 1px;
+}
+
+.col-text {
+  margin-left: 2rem;
+}
+
+.col-text .text-status {
+  font-size: 15px;
+  position: relative;
+  padding: 0 7px;
+  top: 12px;
+  background: white;
+  border-radius: 0;
+  transition: 0.5s;
+}
+
+.col-input .ant-picker-input {
+  margin-left: 11px;
+}
+
+.col-input span {
+  margin-left: 10px;
+}
+
+.col-input {
+  width: 80%
+}
+
+.col-input .form-datepicker-field.active .form-datepicker-label {
+  top: -1px;
+}
+
+.col-input .input-create {
+  height: 51px;
+  width: 100%;
+}
+
+.personnal-tab-col {
+  width: 35%;
+}
+
+.col-input .ant-select span {
+  margin-left: 11px;
+}
+
+.col-input .form-datepicker-label {
+  //background: white;
+  //top: 20px;
+  //position: absolute;
+  padding: 0 0 15px 10px;
+}
+
+.col-input-select {
+  width: 80%;
+}
+
+.col-input-select .ant-select-selection-item {
+  margin-left: 11px;
+}
+
+.col-input-select label {
+  margin-top: 4px;
+}

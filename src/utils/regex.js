@@ -1,0 +1,12 @@
+export const REGEX_MONEY = /[^0-9,]/g;
+export const REGEX_TEMPLATE = /^[a-zA-z]+$/g;
+export const DATE_TIME_REGEX = /^[0-9 /]*$/;
+export const REGEX_VIETNAMESE = /[^a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼẾỀỂưăạảấầẩẫậắằẳẵặẹẻẽếềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổ.,:;ỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳýỵỷỹ]/u;
+export const REGEX_NUMBER = /^[0-9]*$/;
+export const REGEX_PHONE_NUMBER = /^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/;
+// export const REGEX_EMAIL =/^(?![.@])(?![0-9]+$)[a-zA-Z0-9._%+-]{4,64}(?!\.{2})(?<![@.])@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+export const REGEX_EMAIL = /(?![.@])(?![0-9]+$)[a-zA-Z0-9._%+-]{4,64}(?!\.{2})(?<![@.])@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+export const REGEX_EMAIL_OR_PHONE = /^(?:\d{10,12}|\w+@\w+\.\w{2,3})$/;
+export const REGEX_WEBSITE = /^(https?:\/\/)?([\w.-]+)?([\w-]+)\.(\w{2,})(\.[a-z]{2,})?(\/\S*)?$/;
+export const REGEX_TAX = /^\d{10}$|^\d{13}$/;
+export const REGEX_10_15_NUMBER = /^\d{10,15}$/;
