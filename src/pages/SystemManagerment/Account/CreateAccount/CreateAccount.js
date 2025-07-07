@@ -36,6 +36,10 @@ export default function CreateAccount() {
         typeUpdate: false,
         typeCreate: false
     };
+    const WORKING_STATUS_OPTIONS = [
+  { value: "ACTIVE", label: "Đang làm việc" },
+  { value: "INACTIVE", label: "Đã nghỉ việc" },
+];
 
     const [modalCreate, setModalCreate] = useState(initialModalCreate);
 
@@ -69,7 +73,7 @@ export default function CreateAccount() {
     const handleSubmit = async () => {
         const isValid = formCreate.userId && formCreate.fullName && formCreate.email && formCreate.phone && formCreate.birthday
             && formCreate.gender && formCreate.jobPositionCode && formCreate.jobTitleCode && formCreate.departmentCode
-            && formCreate.rankPositionCode && formCreate.titleCode;
+            
         if (!isValid) {
             const errors = {
                 userId: !formCreate.userId ? errorTexts.REQUIRE_FIELD : "",
@@ -328,33 +332,33 @@ export default function CreateAccount() {
                         </Form.Item>
 
                         <Form.Item
-                            label="Trạng thái làm việc"
+    label="Trạng thái làm việc"
+    style={{marginBottom: "12px"}}
+    validateStatus={formErrors["jobPositionCode"] ? "error" : ""}
+    help={formErrors?.jobPositionCode}>
+    <Select
+        size={"large"}
+        className="custom-select"
+        placeholder="Chọn trạng thái làm việc"
+        value={formCreate?.status}
+        onChange={(value) => handleFormUpdate(setFormCreate, setFormErrors, "status", value)}
+        options={WORKING_STATUS_OPTIONS}
+    />
+</Form.Item>
+
+
+                        <Form.Item
+                            label="Chức vụ"
                             style={{marginBottom: "12px"}}
                             validateStatus={formErrors["jobPositionCode"] ? "error" : ""}
                             help={formErrors?.jobPositionCode}>
                             <Select
                                 size={"large"}
                                 className="custom-select"
-                                placeholder="Chọn trạng thái"
-                                value={formCreate?.jobPositionCode}
-                                onChange={(value) => handleFormUpdate(setFormCreate, setFormErrors, "jobPositionCode", value)}>
-                                {jobPositions?.body?.map((item) =>
-                                    (<Option key={item.code} value={item.code}>{item.name}</Option>))}
-                            </Select>
-                        </Form.Item>
-
-                        <Form.Item
-                            label="Chức vụ"
-                            style={{marginBottom: "12px"}}
-                            validateStatus={formErrors["rankPositionCode"] ? "error" : ""}
-                            help={formErrors?.rankPositionCode}>
-                            <Select
-                                size={"large"}
-                                className="custom-select"
                                 placeholder="Chọn chức vụ"
                                 value={formCreate?.positionCode}
-                                onChange={(value) => handleFormUpdate(setFormCreate, setFormErrors, "rankPositionCode", value)}>
-                                {rankPositions?.body?.map((item) =>
+                                onChange={(value) => handleFormUpdate(setFormCreate, setFormErrors, "jobPositionCode", value)}>
+                                {jobPositions?.body?.map((item) =>
                                     (<Option key={item.code} value={item.code}>{item.name}</Option>))}
                             </Select>
                         </Form.Item>

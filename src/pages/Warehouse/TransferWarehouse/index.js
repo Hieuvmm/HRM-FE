@@ -19,6 +19,7 @@ import ModalAssignApprovalExportBill from "../ExportWarehouse/ModalCreateExport/
 import {useNavigate} from "react-router-dom";
 import AppFormPage from "../../../components/AppFormPage/AppFormPage";
 import { hasRole } from "../../../utils/roleUtils";
+import ModalCreateTransfer from "./ModalCreateTransfer";
 const {Option} = Select
 export default function TransferWarehouse () {
     const [formSearch, setFormSearch] = useState({
@@ -316,7 +317,7 @@ export default function TransferWarehouse () {
                 totalPages={totalPages}
             />
             {modalCreate.status && (
-                <ModalCreateExport
+                <ModalCreateTransfer
                     modalCreate={modalCreate}
                     setModalCreate={setModalCreate}
                 />
