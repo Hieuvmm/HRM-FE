@@ -12,15 +12,15 @@ import AppTable from "../../../components/Table/AppTable";
 import AppCreateButton from "../../../components/AppButton/AppCreateButton";
 import AppFilterExBill from "../../../components/AppFilter/AppFilterExBill";
 import {handleFormSearch, handleFormUpdate} from "../../../utils/AppUtil";
-import ModalCreateExport from "./ModalCreateExport";
+import ModalCreateExport from "../ExportWarehouse/ModalCreateExport";
 import {ExportBillWarehouse} from "../../../apis/ExportBillWarehouse.api";
 import {IoIosSend} from "react-icons/io";
-import ModalAssignApprovalExportBill from "./ModalCreateExport/AssignApprovalExportBill";
+import ModalAssignApprovalExportBill from "../ExportWarehouse/ModalCreateExport/AssignApprovalExportBill";
 import {useNavigate} from "react-router-dom";
 import AppFormPage from "../../../components/AppFormPage/AppFormPage";
 import { hasRole } from "../../../utils/roleUtils";
 const {Option} = Select
-export default function ExportWarehouse() {
+export default function TransferWarehouse () {
     const [formSearch, setFormSearch] = useState({
         searchText: "",
         status: "",
@@ -79,11 +79,11 @@ export default function ExportWarehouse() {
     const navigate = useNavigate();
     // Chuyển hướng tới màn hình chi tiết
     const handleDetailClick = (exCode) => {
-        navigate(`/ex-warehouse/detail/${exCode}`);
+        navigate(`/tf-warehouse/detail/${exCode}`);
     };
 
     const handleEditClick = (exCode) => {
-        navigate(`/ex-warehouse/edit/${exCode}`);
+        navigate(`/tf-warehouse/edit/${exCode}`);
     };
     const content = (record) => {
         return (
@@ -153,81 +153,88 @@ export default function ExportWarehouse() {
         }
     }
     const columns = [
+  {
+    title: "STT",
+    dataIndex: "stt",
+    key: "stt",
+  },
+  {
+    title: "Mã phiếu xuất",
+    dataIndex: "exCode",
+    key: "exCode",
+  },
+  ...(role === "Technician"
+    ? [
         {
-            title: "STT",
-            dataIndex: "stt",
-            key: "stt",
+          title: "Ngày xuất",
+          dataIndex: "dateEx",
+          key: "dateEx",
         },
         {
-            title: "Trạng Thái",
-            dataIndex: "status",
-            key: "status",
-            align: "center",
-            render: (text) => handleStatusBill(text),
-            // render: (text) => {
-            //     return (
-            //         <Tag color={(text === "CREATED" || text === "APPROVAL" ) ? "green" : "red"}>
-            //             {(text === "ACTIVE" || text === "CREATED" || text === "APPROVAL") ? "Hoạt động" : "Không hoạt động"}
-            //         </Tag>
-            //     );
-            // },
+          title: "Kho xuất",
+          dataIndex: "wareHouse",
+          key: "wareHouse",
         },
         {
-            title: "Số phiếu",
-            dataIndex: "exCode",
-            key: "exCode",
+          title: "Nội dung xuất",
+          dataIndex: "value",
+          key: "value",
         },
+      ]
+    : [
+        {
+          title: "Người lập phiếu",
+          dataIndex: "createdBy",
+          key: "createdBy",
+        },
+        {
+          title: "Ngày tạo",
+          dataIndex: "createdDate",
+          key: "createdDate",
+        },
+        {
+          title: "Kho xuất",
+          dataIndex: "wareHouse",
+          key: "wareHouse",
+        },
+        {
+          title: "Tổng giá trị",
+          dataIndex: "totalPrice",
+          key: "totalPrice",
+        },
+        {
+          title: "Loại phiếu",
+          dataIndex: "transType",
+          key: "transType",
+          render: (text) => {
+            if (text === "WORKER") return "Thợ xuất";
+            if (text === "WAREHOUSE") return "Chuyển kho";
+            return "Khác";
+          },
+        },
+      ]),
+  {
+    title: "Trạng thái",
+    dataIndex: "status",
+    key: "status",
+    align: "center",
+    render: (text) => handleStatusBill(text),
+  },
+  {
+    title: "Tác vụ",
+    dataIndex: "tacVu",
+    key: "tacVu",
+    align: "center",
+    render: (_, record) => (
+      <Popover placement="top" content={() => content(record)} overlayInnerStyle={{ padding: 0 }}>
+        <div className="flex justify-center w-full h-full">
+          <PiDotsThreeOutlineVerticalFill />
+        </div>
+      </Popover>
+    ),
+  },
+];
 
-        {
-            title: "Kho",
-            dataIndex: "wareHouse",
-            key: "wareHouse",
-        },
-        {
-            title: "Giá trị",
-            dataIndex: "totalPrice",
-            key: "totalPrice",
-        },
-       ...(role !== "Technician"
-        ? [
-              {
-                  title: "Người lập phiếu",
-                  dataIndex: "createdBy",
-                  key: "createdBy",
-              },
-          ]
-        : []),
-        // {
-        //     title: "Nhà cung cấp",
-        //     dataIndex: "wareHouse",
-        //     key: "wareHouse",
-        // },
-        {
-            title: "Ngày lập phiếu",
-            dataIndex: "createdDate",
-            key: "createdDate",
-        },  
-        {
-            title: "Ghi chú",
-            dataIndex: "value",
-            key: "value",
-        },
-        {
-            title: "Tác vụ",
-            dataIndex: "tacVu",
-            key: "tacVu",
-            align: "center",
-            render: (_, record) => (
-
-                <Popover placement="top" content={() => content(record)} overlayInnerStyle={{padding: 0}}>
-                    <div className="flex justify-center w-full h-full">
-                        <PiDotsThreeOutlineVerticalFill/>
-
-                    </div>
-                </Popover>
-            ),
-        },
-    ];
     const dataSource = exBillList?.map((item, index) => ({
         stt: (formSearch.page - 1) * formSearch.limit + index + 1,
         key: item?.exCode,

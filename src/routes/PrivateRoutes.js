@@ -8,6 +8,7 @@ import WarehouseDetail from "../pages/Warehouse/DetailWareHouse";
 import SystemManagement from "../pages/SystemManagerment";
 import ImportWarehouse from "../pages/Warehouse/ImportWarehouse";
 import ExportWarehouse from "../pages/Warehouse/ExportWarehouse";
+
 import ConstructionManagement from "../pages/ConstructionManagement";
 import Customer from "../pages/Objects";
 import UserInfo from "../pages/SystemManagerment/UserInfo";
@@ -33,6 +34,10 @@ import permissions from "pages/SystemManagerment/Permissions";
 import ContentManagement from "../pages/ContentManagement";
 import NewsDetail from "../pages/Dashboard/NewsDetail";
 import AddContent from "../pages/ContentManagement/AddContent";
+import TransferWarehouse from "pages/Warehouse/TransferWarehouse";
+import CreateTransferBillPage from "pages/Warehouse/TransferWarehouse/PageCreateExport/CreateTransferBillPage";
+import DetailTransferBillPage from "pages/Warehouse/TransferWarehouse/PageCreateExport/DetailTransferBillPage";
+
 // const Login = lazy(() => import("../pages/Login"));
 // const Dashboard = lazy(() => import("../pages/Dashboard"));
 // const LayoutMaterials = lazy(() => import("../pages/MaterialCategory"));
@@ -55,7 +60,11 @@ const privateRoutes = [
   { path: routes.IM_WAREHOUSE_UPDATE + ":code", component: CreateImport },
   { path: routes.IM_WAREHOUSE_DETAIL + ":code", component: DetailImport },
   { path: routes.EX_WAREHOUSE, component: ExportWarehouse },
+  { path: routes.TRANFER_WAREHOUSE, component:  TransferWarehouse },
+
   { path: routes.EX_WAREHOUSE_CREATE, component: CreateExportBillPage },
+  { path: routes.TRANFER_WAREHOUSE_CREATE, component: CreateTransferBillPage },
+  { path: routes.TRANFER_WAREHOUSE_DETAIL + ":tfCode", component: DetailTransferBillPage },
   {
     path: routes.EX_WAREHOUSE_EDIT + ":exCode",
     component: CreateExportBillPage,

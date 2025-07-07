@@ -49,6 +49,20 @@ const AppSidebar = () => {
     { staleTime: 0, cacheTime: 0 }
   );
   const [addParameters] = useParameterStore((state) => [state?.addParameters]);
+  const getRolesFromToken = () => {
+  try {
+    const token = localStorage.getItem("accessToken");
+    if (!token || !token.includes(".")) return [];
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return payload?.resource_access?.["home-service"]?.roles || [];
+  } catch (err) {
+    console.error("Token decode failed:", err);
+    return [];
+  }
+};
+
+const roles = getRolesFromToken();
+const hasRole = (roleName) => roles.includes(roleName);
   return (
     <>
       <Sider collapsible collapsed={collapsed} onCollapse={setCollapsed}>
@@ -176,6 +190,14 @@ const AppSidebar = () => {
                 <h4>Xuất kho</h4>
               </Menu.Item>
               <Menu.Item
+                key={routes.TRANFER_WAREHOUSE}
+                onClick={() =>
+                  handleMenuClick(routes.TRANFER_WAREHOUSE, routes.TRANFER_WAREHOUSE)
+                }
+              >
+                <h4>Chuyển kho</h4>
+              </Menu.Item>
+              <Menu.Item
                 key={getKeySidebar(selectedKey, [
                   routes.MATERIAL,
                   routes.MATERIAL_CREATE,
@@ -233,54 +255,53 @@ const AppSidebar = () => {
                 <h4>Bảng công</h4>
               </Menu.Item>
             </Menu.SubMenu>
-            <Menu.SubMenu
-              key={routes.ACCOUNT}
-              title={"Quản trị hệ thống"}
-              icon={<IoSettingsOutline size={25} />}
-            >
-              <Menu.Item
-                key={getKeySidebar(selectedKey, [
-                  routes.ACCOUNT,
-                  routes.JOB_POSITION,
-                  routes.JOB_TITLE,
-                  routes.DEPARTMENT,
-                  routes.BRANCH,
-                ])}
-                onClick={() => handleMenuClick(routes.ACCOUNT, routes.ACCOUNT)}
-              >
-                <h4>Tổ chức</h4>
-              </Menu.Item>
+            {hasRole("Admin") && (
+  <Menu.SubMenu
+    key={routes.ACCOUNT}
+    title={"Quản trị hệ thống"}
+    icon={<IoSettingsOutline size={25} />}
+  >
+    <Menu.Item
+      key={getKeySidebar(selectedKey, [
+        routes.ACCOUNT,
+        routes.JOB_POSITION,
+        routes.JOB_TITLE,
+        routes.DEPARTMENT,
+        routes.BRANCH,
+      ])}
+      onClick={() => handleMenuClick(routes.ACCOUNT, routes.ACCOUNT)}
+    >
+      <h4>Tổ chức</h4>
+    </Menu.Item>
 
-              <Menu.Item
-                key={routes.PERMISSION}
-                onClick={() =>
-                  handleMenuClick(routes.PERMISSION, routes.PERMISSION)
-                }
-              >
-                <h4>Phân quyền</h4>
-              </Menu.Item>
-              <Menu.Item
-                key={routes.USER_INFO}
-                onClick={() =>
-                  handleMenuClick(routes.USER_INFO, routes.USER_INFO)
-                }
-              >
-                <h4>Hồ sơ nhân sự</h4>
-              </Menu.Item>
+    <Menu.Item
+      key={routes.PERMISSION}
+      onClick={() => handleMenuClick(routes.PERMISSION, routes.PERMISSION)}
+    >
+      <h4>Phân quyền</h4>
+    </Menu.Item>
 
-              <Menu.Item
-                key={routes.CONTENT_MANAGEMENT}
-                // icon={<MdOutlineContentPaste size={25} />}
-                onClick={() =>
-                  handleMenuClick(
-                    routes.CONTENT_MANAGEMENT,
-                    routes.CONTENT_MANAGEMENT
-                  )
-                }
-              >
-                <h4>Quản lý dashboard</h4>
-              </Menu.Item>
-            </Menu.SubMenu>
+    <Menu.Item
+      key={routes.USER_INFO}
+      onClick={() => handleMenuClick(routes.USER_INFO, routes.USER_INFO)}
+    >
+      <h4>Hồ sơ nhân sự</h4>
+    </Menu.Item>
+
+    <Menu.Item
+      key={routes.CONTENT_MANAGEMENT}
+      onClick={() =>
+        handleMenuClick(
+          routes.CONTENT_MANAGEMENT,
+          routes.CONTENT_MANAGEMENT
+        )
+      }
+    >
+      <h4>Quản lý dashboard</h4>
+    </Menu.Item>
+  </Menu.SubMenu>
+)}
+
 
             <Menu.SubMenu
               title={"Thêm mới dữ liệu"}
