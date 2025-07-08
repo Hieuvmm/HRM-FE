@@ -1,3 +1,5 @@
+import { Transfer } from "antd";
+
 export const endpoints = {
   auth: {
     PATH_LOGIN: "/wms/as/v1/auth/login",
@@ -28,12 +30,20 @@ export const endpoints = {
     PATH_DELETE_EXCHANGE_RATE: "/wms/whs/v1/ware-house/material-rate/delete",
   },
   exportWarehouse: {
-    PATH_CREATE_EX_WH: "/wms/whs/v1/ware-house/ex/create",
-    PATH_SEARCH_EX_WH: "/wms/whs/v1/ware-house/ex/search",
-    PATH_UPDATE_EX_WH: "/wms/whs/v1/ware-house/ex/update",
-    PATH_DETAIL_EX_WH: "/wms/whs/v1/ware-house/ex/detail",
-    PATH_APPROVAL_EX_WH: "/wms/whs/v1/ware-house/ex/approval",
-    PATH_SEND_APPROVAL_EX_WH: "/wms/whs/v1/ware-house/ex/send-approval",
+    PATH_CREATE_TF_WH: "/wms/whs/v1/ware-house/tf/create",
+    PATH_SEARCH_TF_WH: "/wms/whs/v1/ware-house/tf/search",
+    PATH_UPDATE_TF_WH: "/wms/whs/v1/ware-house/tf/update",
+    PATH_DETAIL_TF_WH: "/wms/whs/v1/ware-house/tf/detail",
+    PATH_APPROVAL_TF_WH: "/wms/whs/v1/ware-house/tf/approval",
+    PATH_SEND_APPROVAL_TF_WH: "/wms/whs/v1/ware-house/tf/send-approval",
+  },
+  exportRequestWarehouse: {
+    PATH_CREATE_TF_WH: "/wms/whs/v1/ware-house/tf/create",
+    PATH_SEARCH_TF_WH: "/wms/whs/v1/ware-house/tf/search",
+    PATH_UPDATE_TF_WH: "/wms/whs/v1/ware-house/tf/update",
+    PATH_DETAIL_TF_WH: "/wms/whs/v1/ware-house/tf/detail",
+    PATH_APPROVAL_TF_WH: "/wms/whs/v1/ware-house/tf/approval",
+    PATH_SEND_APPROVAL_TF_WH: "/wms/whs/v1/ware-house/tf/send-approval",
   },
   unitType: {
     PATH_CREATE_UNIT_TYPE: "/wms/whs/v1/ware-house/material-unit/create",

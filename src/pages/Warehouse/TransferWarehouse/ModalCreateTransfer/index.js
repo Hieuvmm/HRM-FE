@@ -19,6 +19,7 @@ import {FaTrash} from "react-icons/fa";
 import {RiSaveLine} from "react-icons/ri";
 import {ExchangeRateApi} from "../../../../apis/ExchangeRate.api";
 import {ExportBillWarehouse} from "../../../../apis/ExportBillWarehouse.api";
+import {ExportRequestWarehouse} from "../../../../apis/ExportRequestWarehouse.api.js";
 import {
     WarehouseApi,
     WarehouseMaterialDetailApi,
@@ -154,69 +155,37 @@ function calculateFinalTotalPrice(data) {
 }
 
 const transformDataToRequest = (input) => {
-    const transformMaterials = (materials) => {
-        return materials.map((material) => ({
-            materialCode: material.materialCode,
-            expQuantity: material.expQuantity,
-            realQuantity: material.realQuantity,
-            totalPrice: material.totalPrice,
-            unit: material.unit,
-        }));
+    // Giả sử input có các trường: requesterId, warehouseId, note, productEx
+    // productEx là mảng, mỗi phần tử có materialsEx là mảng vật tư
+    // Ta gom tất cả materialsEx lại thành 1 mảng materials
+
+    // Lấy requesterId, warehouseId, note từ input
+    const requesterId = input.requesterId;
+    const warehouseId = input.warehouseId || input.destination; // tuỳ theo field bạn dùng
+    const note = input.note || input.desc;
+
+    // Gom tất cả vật tư từ các productEx
+    let materials = [];
+    if (Array.isArray(input.productEx)) {
+        input.productEx.forEach((product) => {
+            if (Array.isArray(product.materialsEx)) {
+                product.materialsEx.forEach((material) => {
+                    materials.push({
+                        materialId: material.materialId || material.materialCode, 
+                        quantity: Number(material.realQuantity || material.quantity),
+                        unitTypeId: material.unitTypeId || material.unit,
+                    });
+                });
+            }
+        });
+    }
+
+    return {
+        requesterId,
+        warehouseId,
+        note,
+        materials,
     };
-
-    const transformProductEx = (products) => {
-        return products.map((product) => ({
-            time: product.time,
-            materialsEx: transformMaterials(product.materialsEx),
-        }));
-    };
-
-    const transformApprovalFollow = (list) => {
-        if (list == null || list == "") {
-            list = [];
-        }
-        return list.filter((item) => item); // Loại bỏ các phần tử rỗng
-    };
-
-    const transformExchangeRate = () => {
-        const total = calculateFinalTotalPrice(input.productEx);
-        const totalPriceChange =
-            input?.exchangeRateData?.code === "VND" ||
-            !input?.ccy ||
-            input?.ccy === "VND"
-                ? total
-                : total / input?.exchangeRateData?.value;
-
-        return {
-            ccy: input.ccy,
-            totalMoney: String(totalPriceChange)
-                .replace(/[^\d,.-]/g, "")
-                .replace(/\./g, "")
-                .replace(/,/g, "."),
-            // totalMoney: String(total),
-            totalPriceBC: convertCurrencyToWords(total, input.ccy),
-        };
-    };
-
-    // Chuyển đổi dữ liệu
-    const transformed = {
-        typeEx: input.typeEx,
-        orderNumber: input.orderNumber,
-        exCode: input.exCode,
-        dateBill: input.dateBill,
-        // customer: JSON.stringify(input.customer),
-        customer: input.customer,
-        dateEx: input.dateEx,
-        desc: input.desc,
-        whCode: input.whCode,
-        productEx: transformProductEx(input.productEx),
-        ...transformExchangeRate(),
-        approvalBy: transformApprovalFollow(input.approvalBy),
-        followBy: transformApprovalFollow(input.followBy),
-        destination: input.destination
-    };
-
-    return transformed;
 };
 
 function transformResToData(input, resExchangeRatesChange) {
@@ -363,17 +332,22 @@ export default function ModalCreateTransfer({modalCreate, setModalCreate}) {
         }
         return [];
     }, [selectedTabKey, formCreate.productEx]);
-
+    console.log(filteredData, "filteredData");
     const {data: wareHouse} = WarehouseMaterialDetailApi.useGetList(
-        {whCode: formCreate.whCode},
+        {whCode: formCreate.destination},
         {}
     );
+console.log(wareHouse, formCreate.destination, "wareHouse");
 
     useEffect(() => {
-        if (wareHouse?.detailMaterial !== wareHouseList) {
-            setWareHouseList(wareHouse?.detailMaterial);
+        // Khi chọn kho (destination), gọi lại API lấy vật tư theo kho đó
+        if (wareHouse?.detailMaterial) {
+            setWareHouseList(wareHouse.detailMaterial);
+        } else {
+            setWareHouseList([]);
         }
-    }, [wareHouse, wareHouseList]);
+        // eslint-disable-next-line
+    }, [wareHouse, formCreate.destination]);
 
     //Check status hiển thị trạng thái phê duyệt
     const getStatusProps = (status) => {
@@ -584,7 +558,7 @@ export default function ModalCreateTransfer({modalCreate, setModalCreate}) {
 
     // Hàm gọi API tạo mới
     const createNewProduct = () => {
-        ExportBillWarehouse.create(transformDataToRequest(formCreate))
+        ExportRequestWarehouse.create(transformDataToRequest(formCreate))
             .then((response) => {
                 AppNotification.success("Đã tạo mới thành công");
                 closeModal();
@@ -1077,27 +1051,20 @@ export default function ModalCreateTransfer({modalCreate, setModalCreate}) {
                                     <AiOutlineClose/> Hủy
                                 </Button>
                                 {modalCreate.type != "detail_ex" && (
-                                    <Popconfirm
-                                        title="Thông báo"
-                                        description="Bạn có chắc chắn muốn thêm không ?"
-                                        onConfirm={
+                                    <Button
+                                        className="button-add-promotion bg-red-700 text-[white]"
+                                        key="submit"
+                                        title="Thêm"
+                                        disabled={isEditExBill}
+                                        onClick={
                                             modalCreate.type === "detail"
                                                 ? handleSubmit
                                                 : createNewProduct
                                         }
-                                        okText="Có"
-                                        cancelText="Không"
                                     >
-                                        <Button
-                                            className="button-add-promotion bg-red-700 text-[white]"
-                                            key="submit"
-                                            title="Thêm"
-                                            disabled={isEditExBill}
-                                        >
-                                            <RiSaveLine/>
-                                            Lưu lại
-                                        </Button>
-                                    </Popconfirm>
+                                        <RiSaveLine/>
+                                        Lưu lại
+                                    </Button>
                                 )}
                             </div>
                         </Form.Item>
@@ -1283,3 +1250,43 @@ export default function ModalCreateTransfer({modalCreate, setModalCreate}) {
         </React.Fragment>
     );
 }
+// }
+//                                                     }}
+//                                                     disabled={isCreateModal}
+//                                                     onClick={() => submitApproval("REJECT")}
+//                                                 >
+//                                                     Từ chối
+//                                                 </Button>
+//                                                 <Button
+//                                                     type="primary"
+//                                                     danger
+//                                                     onClick={() => submitApproval("APPROVAL")}
+//                                                     disabled={isCreateModal}
+//                                                 >
+//                                                     Phê duyệt
+//                                                 </Button>
+
+//                                             </>
+                                        
+//                                         }
+//                                     // </div> */}
+//                                 {/* </Form> */}
+//                             {/* </Tabs.TabPane>  */}
+//                             {/*<Tabs.TabPane tab="Lịch sử hoạt động" key="2">*/}
+//                             {/*  <p>Lịch sử hoạt động sẽ hiển thị ở đây.</p>*/}
+//                             {/*</Tabs.TabPane>*/}
+//                         {/* </Tabs> */}
+//                     {/* </div> */} 
+//                     {/* end thông tin phê duyệt */}
+//                 // </div>
+//             // </Modal>
+//         </React.Fragment>
+//     );
+// }
+//                     {/* </div> */} 
+//                     {/* end thông tin phê duyệt */}
+//                 // </div>
+//             // </Modal>
+//         </React.Fragment>
+//     );
+// }
