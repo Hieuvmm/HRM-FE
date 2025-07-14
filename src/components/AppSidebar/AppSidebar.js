@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import "./style.scss";
 import { AiOutlineProduct, AiOutlineUser } from "react-icons/ai";
-import logoApp from "../../assets/logoApp.svg";
+import logoApp from "../../assets/Logo.png";
 import { routes } from "../../utils/common";
 import { checkReturnTrue } from "../../utils/AppUtil";
 import { GoCalendar } from "react-icons/go";
@@ -158,6 +158,15 @@ const hasRole = (roleName) => roles.includes(roleName);
               >
                 <h4>Lĩnh vực</h4>
               </Menu.Item>
+              <Menu.Item
+                key={routes.WORKTICKET}
+                onClick={() =>
+                  handleMenuClick(routes.WORKTICKET, routes.WORKTICKET)
+                }
+              >
+                <h4>Phiếu công việc</h4>
+              </Menu.Item>
+              
             </Menu.SubMenu>
             <Menu.SubMenu
               key={routes.WAREHOUSE}
