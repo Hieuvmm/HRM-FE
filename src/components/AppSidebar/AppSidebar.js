@@ -169,6 +169,39 @@ const hasRole = (roleName) => roles.includes(roleName);
               
             </Menu.SubMenu>
             <Menu.SubMenu
+              key={routes.TICHKET}
+              title={"Support Ticket"}
+              icon={<AiOutlineUser size={25} />}
+            >
+              <Menu.Item
+                key={getKeySidebar(selectedKey, [
+                  routes.TICHKET,
+                  routes.PARTNER_CREATE,
+                  routes.PARTNER_UPDATE,
+                ])}
+                onClick={() => handleMenuClick(routes.TICHKET, routes.TICHKET)}
+              >
+                <h4>Ticket List</h4>
+              </Menu.Item>
+              <Menu.Item
+                key={routes.PROFESSION}
+                onClick={() =>
+                  handleMenuClick(routes.PROFESSION, routes.PROFESSION)
+                }
+              >
+                <h4>Lĩnh vực</h4>
+              </Menu.Item>
+              <Menu.Item
+                key={routes.WORKTICKET}
+                onClick={() =>
+                  handleMenuClick(routes.WORKTICKET, routes.WORKTICKET)
+                }
+              >
+                <h4>Phiếu công việc</h4>
+              </Menu.Item>
+              
+            </Menu.SubMenu>
+            <Menu.SubMenu
               key={routes.WAREHOUSE}
               title={"Quản lý kho"}
               icon={<CiFolderOn size={25} />}

@@ -1,4 +1,5 @@
 import { Transfer } from "antd";
+import { Ticket } from "lucide-react";
 
 export const endpoints = {
   auth: {
@@ -208,6 +209,7 @@ export const routes = {
   LOGIN: "/login",
   DASHBOARD: "/dashboard",
   PARTNER: "/partner",
+  TICHKET:"/ticket",
   PROJECT: "/project",
   PROJECT_TYPE: "/project-type",
   PROJECT_TYPE_CREATE: "/project-type/create",
@@ -251,6 +253,8 @@ export const routes = {
   CREATED_DATA: "/create-data",
   PARTNER_CREATE: "/partner/create",
   PARTNER_UPDATE: "/partner/update/",
+  TICKET_CREATE: "/ticket/create",
+  TICKET_UPDATE: "/ticket/update/",
   ORDER_MANAGEMENT: "/order-management",
   ORDER_CREATE: "/order/create",
   ORDER_UPDATE: "/order/update/",
