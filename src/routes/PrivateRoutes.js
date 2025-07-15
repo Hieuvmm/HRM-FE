@@ -38,6 +38,7 @@ import TransferWarehouse from "pages/Warehouse/TransferWarehouse";
 import CreateTransferBillPage from "pages/Warehouse/TransferWarehouse/PageCreateExport/CreateTransferBillPage";
 import DetailTransferBillPage from "pages/Warehouse/TransferWarehouse/PageCreateExport/DetailTransferBillPage";
 import SupportTicket from "pages/SupportTicket";
+import CreateTichket from "pages/SupportTicket/CreateTicket/CreateTichket";
 
 // const Login = lazy(() => import("../pages/Login"));
 // const Dashboard = lazy(() => import("../pages/Dashboard"));
@@ -101,8 +102,8 @@ const privateRoutes = [
   { path: routes.TICHKET, component: SupportTicket },
   { path: routes.PARTNER_CREATE, component: CreateObjectsPartner },
   { path: routes.PARTNER_UPDATE + ":code", component: CreateObjectsPartner },
-  { part: routes.TICHKET_CREATE, component: SupportTicket },
-  { path: routes.TICHKET_UPDATE + ":code", component: SupportTicket },
+  { path: routes.TICKET_CREATE, component: CreateTichket },
+  { path: routes.TICKET_UPDATE + ":code", component: SupportTicket },
   { path: routes.ORDER_MANAGEMENT, component: OrderManagement },
   { path: routes.ORDER_CREATE, component: CreateOrder },
   { path: routes.ORDER_UPDATE + ":code", component: CreateOrder },

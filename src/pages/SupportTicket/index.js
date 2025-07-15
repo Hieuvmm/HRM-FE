@@ -36,7 +36,7 @@ export default function SupportTicket() {
       <div className="p-1 pointer">
         <div
           className="mb-0 p-2 pr-6 hover:bg-red-100"
-          onClick={() => nav(routes.PARTNER_UPDATE + record?.code)}
+          onClick={() => nav(routes.TICKET_UPDATE + record?.code)}
         >
           Chỉnh sửa
         </div>
@@ -247,7 +247,7 @@ export default function SupportTicket() {
       <div className="m-[20px] flex">
         <AppCreateButton
           text={"Thêm mới"}
-          onClick={() => nav(routes.PARTNER_CREATE)}
+          onClick={() => nav(routes.TICKET_CREATE)}
         />
         <AppFilter
           placeholder={"Tìm kiếm theo mã hoặc tên"}

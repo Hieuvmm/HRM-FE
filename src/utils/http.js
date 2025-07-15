@@ -41,46 +41,60 @@ axios.interceptors.response.use(
         const originalRequest = error.config;
         const {data, addUserInfo} = getState();
         if (error.response.status === 401 && !originalRequest._retry) {
-            originalRequest._retry = true;
+  originalRequest._retry = true;
 
-            try {
-                if (!isRefreshing) {
-                    isRefreshing = true;
-                    failedApis.push(originalRequest);
-                    const response = await AuthApi.refresh({
-                        refreshToken: data?.refreshToken,
-                        userCode: data?.userCode
-                    });
-                    console.log(response)
-                    if (response?.body.refreshToken) {
-                        const dataToken = parseJwt(response?.body?.accessToken);
-                        addUserInfo({
-                            jwtToken: response?.body?.accessToken,
-                            refreshToken: response?.body?.refreshToken, ...dataToken
-                        })
-                        originalRequest.headers.Authorization = `Bearer ${response?.body?.accessToken}`;
-                        isRefreshing = false;
+  const { data, addUserInfo } = getState();
 
-                        const retryFailedApis = failedApis.map((api) => axios(api));
-                        await Promise.all(retryFailedApis);
-                        failedApis = [];
-                        return axios(originalRequest).then((response) => response);
-                    } else {
-                        console.error('Refresh token is invalid or expired');
-                        doLogout();
-                        return Promise.reject(error);
-                    }
-                } else {
-                    failedApis.push(originalRequest);
-                    return Promise.resolve({data: 'Refresh token is being refreshed...'});
-                }
-            } catch (error) {
-                console.error('Error refreshing token:', error);
-                doLogout();
-                isRefreshing = false;
-                return Promise.reject(error);
-            }
-        }
+  // ✅ THÊM ĐOẠN KIỂM TRA refreshToken
+  if (!data?.refreshToken || !data?.userCode) {
+    console.warn("❌ Không có refreshToken hoặc userCode → không thể refresh → logout");
+    doLogout();
+    return Promise.reject(error);
+  }
+
+  try {
+    if (!isRefreshing) {
+      isRefreshing = true;
+      failedApis.push(originalRequest);
+
+      const response = await AuthApi.refresh({
+        refreshToken: data.refreshToken,
+        userCode: data.userCode,
+      });
+
+      console.log(response);
+      if (response?.body?.refreshToken) {
+        const dataToken = parseJwt(response?.body?.accessToken);
+        addUserInfo({
+          jwtToken: response?.body?.accessToken,
+          refreshToken: response?.body?.refreshToken,
+          ...dataToken,
+        });
+
+        originalRequest.headers.Authorization = `Bearer ${response?.body?.accessToken}`;
+        isRefreshing = false;
+
+        const retryFailedApis = failedApis.map((api) => axios(api));
+        await Promise.all(retryFailedApis);
+        failedApis = [];
+        return axios(originalRequest);
+      } else {
+        console.error("❌ Refresh token không hợp lệ hoặc đã hết hạn");
+        doLogout();
+        return Promise.reject(error);
+      }
+    } else {
+      failedApis.push(originalRequest);
+      return Promise.resolve({ data: "Refresh token is being refreshed..." });
+    }
+  } catch (error) {
+    console.error("❌ Lỗi khi gọi API refresh:", error);
+    doLogout();
+    isRefreshing = false;
+    return Promise.reject(error);
+  }
+}
+
     }
 )
 
@@ -131,13 +145,21 @@ export async function get(url, params = {}) {
 }
 
 export async function post(url, data, config = {}) {
-    const isHideLoading = data.progress === false;
-    delete data.progress;
-    if (!isHideLoading) showLoading();
+  const isHideLoading = data.progress === false;
+  delete data.progress;
+
+  if (!isHideLoading) showLoading();
+
+  try {
     const response = await axios.post(url, data, config);
-    if (!isHideLoading) hideLoading();
     return response.data;
+  } catch (error) {
+    throw error; 
+  } finally {
+    if (!isHideLoading) hideLoading(); 
+  }
 }
+
 
 export function getRequest(url, params = {}, ...rest) {
     return convertRequest(params, () => axios.get(url, {params}), ...rest);
